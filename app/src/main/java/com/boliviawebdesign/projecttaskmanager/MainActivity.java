@@ -19,62 +19,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnAddPost = (Button) this.findViewById(R.id.btnAdd);
-        final EditText postNameText = (EditText) findViewById(R.id.postNameText);
-        final EditText postDescriptionText = (EditText) findViewById(R.id.postDescriptionText);
+        Button btnAddComment = (Button) this.findViewById(R.id.btnAddComment);
 
-
-
-        btnAddPost.setOnClickListener(new View.OnClickListener() {
+        btnAddComment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-
-
-                String params[] = { postNameText.getText().toString(),
-                        postDescriptionText.getText().toString()
-                };
-
-
-                new ProcessJSON().execute(params);
+                startActivity(new Intent(MainActivity.this, AddComment.class));
             }
         });
 
+
+
     }
-
-
-
-
-    private class ProcessJSON extends AsyncTask<String, Void, String> {
-        protected String doInBackground(String ... params){
-
-            String text = "";
-            BufferedReader reader=null;
-
-            String stringURL = "http://192.168.43.82/ptm/index.php/services/add_comment";
-
-            Hashtable hashparams =new Hashtable();
-
-            hashparams.put("post_name",params[0]);
-            hashparams.put("post_description",params[1]);
-
-            SenderReceiver sender = new SenderReceiver();
-
-            return sender.getMessage(stringURL, hashparams);
-        }
-
-        protected void onPostExecute(String stream) {
-            TextView tv= (TextView) findViewById(R.id.viewResults);
-            //..........Process JSON DATA................
-            if(stream !=null) {
-                try {
-
-                    tv.setText(stream);
-
-                }catch(Exception ex){
-                    ex.printStackTrace();
-                }
-
-            } // if statement end
-        } // onPostExecute() end
-    } // ProcessJSON class end
 }
