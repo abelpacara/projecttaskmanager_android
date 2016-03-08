@@ -32,8 +32,10 @@ public class AddComment extends AppCompatActivity {
         btnAddComment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                Intent myIntent = getIntent(); // this is just for example purpose
+                Bundle myBundle = myIntent.getExtras();
 
-                String params[] = {commentContentText.getText().toString()
+                String params[] = {commentContentText.getText().toString(), myBundle.getString("post_id")
                 };
 
 
@@ -58,11 +60,12 @@ public class AddComment extends AppCompatActivity {
             String text = "";
             BufferedReader reader=null;
 
-            String stringURL = "http://192.168.134.200/ptm/index.php/services/add_comment";
+            String stringURL = getResources().getString(R.string.server_address)+"/add_comment";
 
             Hashtable hashparams =new Hashtable();
 
             hashparams.put("post_content",params[0]);
+            hashparams.put("parent_id",params[1]);
 
             SenderReceiver sender = new SenderReceiver();
 
