@@ -7,9 +7,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -92,21 +91,45 @@ public class MainActivity extends AppCompatActivity {
                         final String jspostId= jsobj.getString("id_post");
 
 
-                        LinearLayout layout1 = new LinearLayout(MainActivity.this);
-                        layout1.setBackgroundColor(Color.CYAN);
-                        layout1.setOrientation(LinearLayout.HORIZONTAL);
+                        LinearLayout layoutHeader = new LinearLayout(MainActivity.this);
+                        layoutHeader.setBackgroundColor(Color.CYAN);
+                        layoutHeader.setOrientation(LinearLayout.HORIZONTAL);
 
-                        LinearLayout layout2 = new LinearLayout(MainActivity.this);
-                        layout2.setBackgroundColor(Color.GRAY);
-                        layout2.setOrientation(LinearLayout.HORIZONTAL);
+                        LinearLayout layoutHeaderUser = new LinearLayout(MainActivity.this);
+                        layoutHeaderUser.setBackgroundColor(Color.CYAN);
+                        layoutHeaderUser.setOrientation(LinearLayout.VERTICAL);
+
+                        LinearLayout layoutHeaderTitles = new LinearLayout(MainActivity.this);
+                        layoutHeaderTitles.setBackgroundColor(Color.CYAN);
+                        layoutHeaderTitles.setOrientation(LinearLayout.VERTICAL);
+
+
+
+
+                        LinearLayout layoutButtons = new LinearLayout(MainActivity.this);
+                        layoutButtons.setBackgroundColor(Color.GRAY);
+                        layoutButtons.setOrientation(LinearLayout.HORIZONTAL);
 
 
 
 
 
-                        TableRow row1 = new TableRow(MainActivity.this);
-                        TableRow row2 = new TableRow(MainActivity.this);
-                        TableRow row3 = new TableRow(MainActivity.this);
+                        TableRow rowHeader = new TableRow(MainActivity.this);
+                        TableRow rowButtons = new TableRow(MainActivity.this);
+                        TableRow rowContent = new TableRow(MainActivity.this);
+
+
+                        ///////////////////////////////////////////////////////////////////
+                        ImageButton btnUser = new ImageButton(MainActivity.this);
+                        btnUser.setImageResource(R.drawable.user);
+
+                        int btn_user_width = (int)getResources().getDimension(R.dimen.button_user_width);
+                        int btn_user_height = (int)getResources().getDimension(R.dimen.button_user_height);
+
+                        buttonStyling(btnUser, btn_user_width, btn_user_height);
+
+                        layoutHeaderUser.addView(btnUser);
+
 
                         TextView projectTitle = new TextView(MainActivity.this);
                         projectTitle.setText("Project Title");
@@ -128,19 +151,87 @@ public class MainActivity extends AppCompatActivity {
                         TextView postContent = new TextView(MainActivity.this);
                         postContent.setText(jspostContent);
 
-                        Button btnRepply = new Button(MainActivity.this);
-                        btnRepply.setText("Reply "+i);
 
-                        Button btnComment = new Button(MainActivity.this);
-                        btnComment.setText("Comment " + i);
+                        tableLayout.addView(rowHeader);
+                        tableLayout.addView(rowContent);
+                        tableLayout.addView(rowButtons);
 
-                        //Button btnAddComment = (Button) findViewById(R.id.btnAddComment);
+                        rowHeader.addView(layoutHeader);
 
-                        //btnAddComment.setOnClickListener(getOnClickDoSomething(btnAddComment, jspostId));
+                        layoutHeaderTitles.addView(projectTitle);
+                        layoutHeaderTitles.addView(discussionTitle);
+                        layoutHeaderTitles.addView(postTitle);
+
+                        layoutHeader.addView(layoutHeaderUser);
+                        layoutHeader.addView(layoutHeaderTitles);
+
+                        rowButtons.addView(layoutButtons);
 
 
+                        /***************************************************************/
+                        int btn_width = (int)getResources().getDimension(R.dimen.button_width);
+                        int btn_height = (int)getResources().getDimension(R.dimen.button_height);
+
+                        /***************************************************************/
+                        ImageButton btnComment = new ImageButton(MainActivity.this);
+                        btnComment.setImageResource(R.drawable.comment);
+                        buttonStyling(btnComment, btn_width, btn_height);
 
                         btnComment.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+
+                                Intent intent = new Intent(MainActivity.this, AddComment.class);
+
+                                Bundle myBundle = new Bundle();
+                                myBundle.putString("post_id", jspostId);
+
+                                intent.putExtras(myBundle);
+                                startActivity(intent);
+                            }
+                        });
+                        layoutButtons.addView(btnComment);
+                        /***************************************************************/
+                        ImageButton btnReply = new ImageButton(MainActivity.this);
+                        btnReply.setImageResource(R.drawable.reply);
+                        buttonStyling(btnReply, btn_width, btn_height);
+
+                        btnReply.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+
+                                Intent intent = new Intent(MainActivity.this, AddComment.class);
+
+                                Bundle myBundle = new Bundle();
+                                myBundle.putString("post_id", jspostId);
+
+                                intent.putExtras(myBundle);
+                                startActivity(intent);
+                            }
+                        });
+                        layoutButtons.addView(btnReply);
+                        /***************************************************************/
+                        ImageButton btnLike = new ImageButton(MainActivity.this);
+                        btnLike.setImageResource(R.drawable.like);
+                        buttonStyling(btnLike, btn_width, btn_height);
+
+                        btnLike.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+
+                                Intent intent = new Intent(MainActivity.this, AddComment.class);
+
+                                Bundle myBundle = new Bundle();
+                                myBundle.putString("post_id", jspostId);
+
+                                intent.putExtras(myBundle);
+                                startActivity(intent);
+                            }
+                        });
+                        layoutButtons.addView(btnLike);
+                        /***************************************************************/
+                        ImageButton btnMore = new ImageButton(MainActivity.this);
+                        btnMore.setImageResource(R.drawable.more);
+                        buttonStyling(btnMore, btn_width, btn_height);
+
+                        btnMore.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
 
                                 Intent intent = new Intent(MainActivity.this, AddComment.class);
@@ -154,36 +245,30 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         });
+                        layoutButtons.addView(btnMore);
+                        /***************************************************************/
+                        ImageButton btnShare = new ImageButton(MainActivity.this);
+                        btnShare.setImageResource(R.drawable.share);
+                        buttonStyling(btnShare, btn_width, btn_height);
+
+                        btnShare.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+
+                                Intent intent = new Intent(MainActivity.this, AddComment.class);
+
+                                Bundle myBundle = new Bundle();
+                                myBundle.putString("post_id", jspostId);
+
+                                intent.putExtras(myBundle);
+                                startActivity(intent);
 
 
-
-
-                        tableLayout.addView(row1);
-                        tableLayout.addView(row2);
-                        tableLayout.addView(row3);
-
-                        row1.addView(layout1);
-
-                        layout1.addView(projectTitle);
-                        layout1.addView(discussionTitle);
-                        layout1.addView(postTitle);
-
-
-                        row2.addView(layout2);
-
-
-
-                        layout2.addView(btnComment);
-                        layout2.addView(btnRepply);
-
-
-
-                        row3.addView(postContent);
-
-
+                            }
+                        });
+                        layoutButtons.addView(btnShare);
+                        /***************************************************************/
+                        rowContent.addView(postContent);
                         ((TableRow.LayoutParams) postContent.getLayoutParams()).weight = 1;
-
-
 
                     }
 
@@ -199,27 +284,48 @@ public class MainActivity extends AppCompatActivity {
         } // onPostExecute() end
     } // ProcessJSON class end
 
-    View.OnClickListener getOnClickDoSomething(final Button button, final String jspostId)  {
-        return new View.OnClickListener() {
-            public void onClick(View v) {
-                button.setText("COMMENT");
 
-
-
-
-
-                Intent intent = new Intent(MainActivity.this, AddComment.class);
-
-                Bundle myBundle = new Bundle();
-                myBundle.putString("discussion_id", jspostId);
-
-                intent.putExtras(myBundle);
-                startActivity(intent);
-
-
-
-
-            }
-        };
+    private int getDipsToPixels(int dip){
+        float scale = getResources().getDisplayMetrics().density;
+        int dpAsPixels = (int) (dip*scale + 0.5f);
+        return dpAsPixels;
     }
+
+
+    private void buttonStyling(ImageButton imageBtn, int btn_width, int btn_height){
+        //-------------------------------------------------
+
+
+        LinearLayout.LayoutParams layoutParams= new LinearLayout.LayoutParams(btn_width, btn_height);
+
+
+        int dpAsPixels = getDipsToPixels( (int)getResources().getDimension(R.dimen.margin_left_dip) );
+
+        layoutParams.setMargins(dpAsPixels, dpAsPixels, 0, dpAsPixels);
+
+        imageBtn.setLayoutParams(layoutParams);
+        //-------------------------------------------------
+
+
+        imageBtn.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+
+
+
+
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            //btnComment.setBackgroundDrawable(null);
+            //btnComment.setBackgroundDrawable(Color.BLUE);
+        } else {
+            //btnComment.setBackground(null);
+            imageBtn.setBackgroundColor(Color.BLUE);
+        }
+
+
+
+        //-------------------------------------------------
+
+    }
+
 }

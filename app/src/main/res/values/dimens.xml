@@ -6,4 +6,13 @@
     <dimen name="textsizeLarge">3dip</dimen>
     <dimen name="textsizeMedium">3dip</dimen>
     <dimen name="textsizeSmall">2.5dip</dimen>
+
+    <dimen name="button_width">30dip</dimen>
+    <dimen name="button_height">30dip</dimen>
+
+    <dimen name="button_user_width">40dip</dimen>
+    <dimen name="button_user_height">40dip</dimen>
+
+    <dimen name="margin_left_dip">1dip</dimen>
+
 </resources>
