@@ -7,34 +7,32 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.boliviawebdesign.projecttaskmanager.AddComment">
+    tools:context="com.boliviawebdesign.projecttaskmanager.AddForum">
+
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:weightSum="1">
 
         <Button
-            android:layout_width="208dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ADD COMMET"
-            android:id="@+id/btnAddComment"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.07" />
+            android:text="ADD FORUM"
+            android:id="@+id/btnAddForum"
+            android:layout_gravity="center_horizontal" />
 
-
+        <Spinner
+            android:id="@+id/forum_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"/>
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/commentContentText"
-            android:layout_weight="0.62" />
+            android:layout_height="match_parent"
+            android:id="@+id/forumContentText" />
 
     </LinearLayout>
 

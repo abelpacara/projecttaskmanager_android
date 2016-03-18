@@ -1,12 +1,14 @@
 package com.boliviawebdesign.projecttaskmanager;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +34,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button btnAddForum = (Button) this.findViewById(R.id.btnAddForum);
+
+        btnAddForum.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, AddForum.class);
+                startActivity(intent);
+            }
+        });
+
+
+
         tableLayout = (TableLayout)findViewById(R.id.commentsTable);
 
 
@@ -39,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
-
 
 
 
@@ -90,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
                         String jspostContent= jsobj.getString("post_content");
                         final String jspostId= jsobj.getString("id_post");
 
+                        String jsprojectTitle= jsobj.getString("project_title");
+
 
                         LinearLayout layoutHeader = new LinearLayout(MainActivity.this);
                         layoutHeader.setBackgroundColor(Color.CYAN);
@@ -132,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                         TextView projectTitle = new TextView(MainActivity.this);
-                        projectTitle.setText("Project Title");
+                        projectTitle.setText(jsprojectTitle);
                         projectTitle.setTypeface(null, Typeface.BOLD);
                         projectTitle.setTextSize(getResources().getDimension(R.dimen.textsizeLarge));
 
