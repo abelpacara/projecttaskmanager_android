@@ -22,6 +22,7 @@
             android:label="@string/title_activity_add_comment"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AddForum" />
+        <activity android:name=".AddProject"></activity>
     </application>
 
 </manifest>

@@ -51,7 +51,13 @@ public class AddComment extends AppCompatActivity {
         Button btnAddComment = (Button) this.findViewById(R.id.btnAddComment);
         final EditText commentContentText = (EditText) findViewById(R.id.commentContentText);
 
+        Intent myIntent = getIntent(); // this is just for example purpose
 
+        Bundle myBundle = myIntent.getExtras();
+
+        String msg =  myBundle.getString("parent_id")+" "+myBundle.getString("project_id")+" "+myBundle.getString("forum_id");
+
+        commentContentText.setText(msg);
 
         btnAddComment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -59,26 +65,15 @@ public class AddComment extends AppCompatActivity {
                 Intent myIntent = getIntent(); // this is just for example purpose
                 Bundle myBundle = myIntent.getExtras();
 
-                String params[] = {commentContentText.getText().toString(), myBundle.getString("post_id")
+                String params[] = {commentContentText.getText().toString(), myBundle.getString("parent_id"),
+                        myBundle.getString("project_id"),
+                        myBundle.getString("forum_id"),
                 };
 
 
                 new ProcessAddComment().execute(params);
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -98,6 +93,8 @@ public class AddComment extends AppCompatActivity {
 
             hashparams.put("post_content",params[0]);
             hashparams.put("parent_id",params[1]);
+            hashparams.put("project_id",params[2]);
+            hashparams.put("forum_id", params[3]);
 
             SenderReceiver sender = new SenderReceiver();
 

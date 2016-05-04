@@ -1,5 +1,6 @@
 package com.boliviawebdesign.projecttaskmanager;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -32,12 +34,18 @@ public class AddForum extends AppCompatActivity {
     String projects_ids[];
     int projectsSpinnerIndex = 0;
 
+
+    DatabaseManager dbManager;
+    PostsDatabaseHelper databaseHelper;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_forum);
 
-
+        dbManager = new DatabaseManager(this);
+        databaseHelper = PostsDatabaseHelper.getInstance(this);
 
 
 
@@ -49,11 +57,7 @@ public class AddForum extends AppCompatActivity {
         btnAddForum.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent myIntent = getIntent(); // this is just for example purpose
-
                 String params[] = {forumContentText.getText().toString()};
-
-
                 new ProcessAddForum().execute(params);
             }
         });
@@ -91,7 +95,6 @@ public class AddForum extends AppCompatActivity {
                 try {
 
                     JSONArray jsarray = new JSONArray(stream);
-
                     items = new String[jsarray.length()];
                     projects_ids = new String[jsarray.length()];
 
@@ -103,7 +106,7 @@ public class AddForum extends AppCompatActivity {
                         Map<String, String> item0 = new HashMap<String, String>(2);
 
                         projects_ids[i] = jsobj.getString("id_post");
-                        items[i] = jsobj.getString("post_title");
+                        items[i] = jsobj.getString("post_content");
                     }
 
 
@@ -127,7 +130,6 @@ public class AddForum extends AppCompatActivity {
                             projectsSpinnerIndex = spinnerDropDown.getSelectedItemPosition();
 
 
-
                             Toast.makeText(getBaseContext(), "Seleccionaste el foro : " + items[projectsSpinnerIndex] + " " + projects_ids[projectsSpinnerIndex],
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -138,6 +140,26 @@ public class AddForum extends AppCompatActivity {
                         }
                     });
 
+
+
+                    ContentValues values = new ContentValues();
+                    values.put("project_id", projects_ids[projectsSpinnerIndex]);
+                    values.put("post_title", "forum 3");
+                    values.put("post_content", "LOREM IPSUM 3");
+
+                    /*dbManager.insert("posts", values);
+                    String msg = dbManager.getTestInsert();
+                    */
+
+                    databaseHelper.addPost(values, "forum");
+
+                    //databaseHelper.insert("posts", values);
+
+                    String msg = databaseHelper.getTestInsert();
+
+
+                    TextView myTextView = (TextView) AddForum.this.findViewById(R.id.textView);
+                    myTextView.setText(msg);
 
                 } catch (Exception ex) {
 
@@ -165,6 +187,9 @@ public class AddForum extends AppCompatActivity {
 
             hashparams.put("post_content",params[0]);
             hashparams.put("parent_id", projects_ids[projectsSpinnerIndex]);
+
+
+
 
             SenderReceiver sender = new SenderReceiver();
 

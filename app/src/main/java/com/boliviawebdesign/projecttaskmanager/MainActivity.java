@@ -34,6 +34,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button btnAddProject = (Button) this.findViewById(R.id.btnAddProject);
+
+        btnAddProject.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, AddProject.class);
+                startActivity(intent);
+            }
+        });
+
         Button btnAddForum = (Button) this.findViewById(R.id.btnAddForum);
 
         btnAddForum.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
 
 
@@ -98,10 +109,14 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject jsobj = jsarray.getJSONObject(i);
 
                         String jspostTitle= jsobj.getString("post_title");
+                        String jspostType= jsobj.getString("post_type");
                         String jspostContent= jsobj.getString("post_content");
-                        final String jspostId= jsobj.getString("id_post");
+                        final String jsparentId= jsobj.getString("id_post");
+                        final String jsprojectId= jsobj.getString("project_id");
+                        final String jsforumId= jsobj.getString("forum_id");
 
-                        String jsprojectTitle= jsobj.getString("project_title");
+                        String jsprojectContent = jsobj.getString("project_content");
+                        String jsforumContent = jsobj.getString("forum_content");
 
 
                         LinearLayout layoutHeader = new LinearLayout(MainActivity.this);
@@ -144,22 +159,23 @@ public class MainActivity extends AppCompatActivity {
                         layoutHeaderUser.addView(btnUser);
 
 
-                        TextView projectTitle = new TextView(MainActivity.this);
-                        projectTitle.setText(jsprojectTitle);
-                        projectTitle.setTypeface(null, Typeface.BOLD);
-                        projectTitle.setTextSize(getResources().getDimension(R.dimen.textsizeLarge));
-
-                        TextView discussionTitle = new TextView(MainActivity.this);
-                        discussionTitle.setText("Discussion Title");
-                        discussionTitle.setTypeface(null, Typeface.ITALIC);
-                        discussionTitle.setTextSize(getResources().getDimension(R.dimen.textsizeMedium));
-
-                        TextView postTitle = new TextView(MainActivity.this);
-                        //postTitle.setText("Post Title");
-                        postTitle.setText(jspostTitle);
+                        TextView projectContent = new TextView(MainActivity.this);
+                        projectContent.setText(jsprojectContent);
+                        projectContent.setTypeface(null, Typeface.BOLD);
+                        projectContent.setTextSize(getResources().getDimension(R.dimen.textsizeLarge));
 
 
-                        postTitle.setTextSize(getResources().getDimension(R.dimen.textsizeSmall));
+                        if(jspostType.equalsIgnoreCase("forum"))
+                        {
+                            jsforumContent = jspostContent;
+                        }
+
+                        TextView forumContent = new TextView(MainActivity.this);
+                        forumContent.setText(jsforumContent);
+                        forumContent.setTypeface(null, Typeface.ITALIC);
+                        forumContent.setTextSize(getResources().getDimension(R.dimen.textsizeMedium));
+
+
 
                         TextView postContent = new TextView(MainActivity.this);
                         postContent.setText(jspostContent);
@@ -171,9 +187,10 @@ public class MainActivity extends AppCompatActivity {
 
                         rowHeader.addView(layoutHeader);
 
-                        layoutHeaderTitles.addView(projectTitle);
-                        layoutHeaderTitles.addView(discussionTitle);
-                        layoutHeaderTitles.addView(postTitle);
+                        layoutHeaderTitles.addView(projectContent);
+                        layoutHeaderTitles.addView(forumContent);
+
+
 
                         layoutHeader.addView(layoutHeaderUser);
                         layoutHeader.addView(layoutHeaderTitles);
@@ -196,7 +213,9 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MainActivity.this, AddComment.class);
 
                                 Bundle myBundle = new Bundle();
-                                myBundle.putString("post_id", jspostId);
+                                myBundle.putString("parent_id", jsparentId);
+                                myBundle.putString("project_id", jsprojectId);
+                                myBundle.putString("forum_id", jsforumId);
 
                                 intent.putExtras(myBundle);
                                 startActivity(intent);
@@ -214,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MainActivity.this, AddComment.class);
 
                                 Bundle myBundle = new Bundle();
-                                myBundle.putString("post_id", jspostId);
+                                myBundle.putString("post_id", jsparentId);
 
                                 intent.putExtras(myBundle);
                                 startActivity(intent);
@@ -232,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MainActivity.this, AddComment.class);
 
                                 Bundle myBundle = new Bundle();
-                                myBundle.putString("post_id", jspostId);
+                                myBundle.putString("post_id", jsparentId);
 
                                 intent.putExtras(myBundle);
                                 startActivity(intent);
@@ -250,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MainActivity.this, AddComment.class);
 
                                 Bundle myBundle = new Bundle();
-                                myBundle.putString("post_id", jspostId);
+                                myBundle.putString("post_id", jsparentId);
 
                                 intent.putExtras(myBundle);
                                 startActivity(intent);
@@ -270,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MainActivity.this, AddComment.class);
 
                                 Bundle myBundle = new Bundle();
-                                myBundle.putString("post_id", jspostId);
+                                myBundle.putString("post_id", jsparentId);
 
                                 intent.putExtras(myBundle);
                                 startActivity(intent);
@@ -280,9 +299,10 @@ public class MainActivity extends AppCompatActivity {
                         });
                         layoutButtons.addView(btnShare);
                         /***************************************************************/
-                        rowContent.addView(postContent);
-                        ((TableRow.LayoutParams) postContent.getLayoutParams()).weight = 1;
-
+                        if( ! jspostType.equalsIgnoreCase("forum")) {
+                            rowContent.addView(postContent);
+                            ((TableRow.LayoutParams) postContent.getLayoutParams()).weight = 1;
+                        }
                     }
 
 
