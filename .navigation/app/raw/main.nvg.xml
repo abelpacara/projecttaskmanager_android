@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel
+  ns = "http://schemas.android.com?import=com.android.tools.idea.editors.navigation.model.*">
+  <locations  
+    class = "java.util.ArrayList">
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.boliviawebdesign.projecttaskmanager.AddComment"/>
+      <point      
+        x = "3440"      
+        y = "172"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.boliviawebdesign.projecttaskmanager.AddProject"/>
+      <point      
+        x = "1436"      
+        y = "180"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.boliviawebdesign.projecttaskmanager.MainActivity"/>
+      <point      
+        x = "464"      
+        y = "184"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.boliviawebdesign.projecttaskmanager.AddForum"/>
+      <point      
+        x = "2460"      
+        y = "192"/>
+    </statePointEntry>
+  </locations>
+</navigationModel>
