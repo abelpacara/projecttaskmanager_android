@@ -38,11 +38,18 @@ public class AddForum extends AppCompatActivity {
     DatabaseManager dbManager;
     PostsDatabaseHelper databaseHelper;
 
+    private Session session;//global variable
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_forum);
+
+        //####################################################################
+        session = new Session(AddForum.this); //in oncreate
+        //and now we set sharedpreference then use this like
+
 
         dbManager = new DatabaseManager(this);
         databaseHelper = PostsDatabaseHelper.getInstance(this);
@@ -82,6 +89,7 @@ public class AddForum extends AppCompatActivity {
             String stringURL = getResources().getString(R.string.server_address) + "/view_list_projects";
 
             Hashtable hashparams = new Hashtable();
+            hashparams.put("user_id", session.getUserId());
 
             SenderReceiver sender = new SenderReceiver();
 
@@ -142,24 +150,16 @@ public class AddForum extends AppCompatActivity {
 
 
 
-                    ContentValues values = new ContentValues();
-                    values.put("project_id", projects_ids[projectsSpinnerIndex]);
-                    values.put("post_title", "forum 3");
-                    values.put("post_content", "LOREM IPSUM 3");
 
-                    /*dbManager.insert("posts", values);
-                    String msg = dbManager.getTestInsert();
-                    */
-
-                    databaseHelper.addPost(values, "forum");
-
-                    //databaseHelper.insert("posts", values);
 
                     String msg = databaseHelper.getTestInsert();
 
 
                     TextView myTextView = (TextView) AddForum.this.findViewById(R.id.textView);
+
                     myTextView.setText(msg);
+
+
 
                 } catch (Exception ex) {
 
@@ -185,8 +185,28 @@ public class AddForum extends AppCompatActivity {
 
             Hashtable hashparams =new Hashtable();
 
+            hashparams.put("user_id",session.getUserId());
             hashparams.put("post_content",params[0]);
             hashparams.put("parent_id", projects_ids[projectsSpinnerIndex]);
+
+
+
+
+            /*************************************************************/
+            ContentValues values = new ContentValues();
+            values.put("project_id", projects_ids[projectsSpinnerIndex]);
+            values.put("post_title", params[0]);
+            values.put("post_content", params[0]);
+
+                    /*dbManager.insert("posts", values);
+                    String msg = dbManager.getTestInsert();
+                    */
+            //#######################
+            //databaseHelper.addPost(values, "forum");
+
+            //databaseHelper.insert("posts", values);
+
+            /*************************************************************/
 
 
 
@@ -197,6 +217,8 @@ public class AddForum extends AppCompatActivity {
         }
 
         protected void onPostExecute(String stream) {
+
+
 
 
             startActivity(new Intent(AddForum.this, MainActivity.class));

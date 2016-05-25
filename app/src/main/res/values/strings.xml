@@ -1,15 +1,16 @@
 <resources>
     <string name="app_name">project task manager</string>
     <string name="title_activity_add_comment">AddComment</string>
-    <string name="server_address">http://www.boliviawebdesign.com/ptm/index.php/services</string>
+    <!--<string name="server_address">http://www.boliviawebdesign.com/ptm/index.php/services</string>-->
     <!--<string name="server_address">http://192.168.134.200/ptm/index.php/services</string>-->
     <!--<string name="server_address">http://192.168.223.100/ptm/index.php/services</string>-->
-    <!--<string name="server_address">http://192.168.43.82/ptm/index.php/services</string>-->
+    <string name="server_address">http://192.168.43.82/ptm/index.php/services</string>
     <string name="title_activity_main2">Main2Activity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>

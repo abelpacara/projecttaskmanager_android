@@ -27,14 +27,33 @@
             android:layout_weight="0.07" />
 
 
-
-        <EditText
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
+            android:layout_height="238dp"
+            android:layout_weight="0.79">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/commentContentText"
+                android:layout_weight="0.01" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView" />
+        </LinearLayout>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/commentContentText"
-            android:layout_weight="0.62" />
+            android:text="Take Picture"
+            android:id="@+id/btnTakePicture"
+            android:layout_weight="0.07" />
 
     </LinearLayout>
 

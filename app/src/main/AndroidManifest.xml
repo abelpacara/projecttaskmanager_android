@@ -3,26 +3,36 @@
     package="com.boliviawebdesign.projecttaskmanager">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    fdfasdf
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity"/>
         <activity
             android:name=".AddComment"
             android:label="@string/title_activity_add_comment"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AddForum" />
-        <activity android:name=".AddProject"></activity>
+
+        <activity android:name=".AddProject" />
+
     </application>
 
 </manifest>

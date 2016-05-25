@@ -27,12 +27,19 @@ import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
     TableLayout tableLayout;
+    private Session session;//global variable
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //####################################################################
+        session = new Session(MainActivity.this); //in oncreate
+        //and now we set sharedpreference then use this like
+
 
         Button btnAddProject = (Button) this.findViewById(R.id.btnAddProject);
 
@@ -60,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
         tableLayout = (TableLayout)findViewById(R.id.commentsTable);
 
 
-        new ProcessJSON().execute();
+        String activitiesParams[] ={session.getUserId()};
+        new ProcessLoadActivities().execute(activitiesParams);
 
 
     }
@@ -69,20 +77,18 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-    private class ProcessJSON extends AsyncTask<String, Void, String>{
+    //######################################################################
+    private class ProcessLoadActivities extends AsyncTask<String, Void, String>{
         protected String doInBackground(String ... params){
 
             String text = "";
             BufferedReader reader=null;
 
-            String stringURL = getResources().getString(R.string.server_address)+"/view_list_comments";
-            //String stringURL = "http://192.168.134.200/ptm/index.php/services/view_list_comments";
+            String stringURL = getResources().getString(R.string.server_address)+"/view_list_activities";
 
             Hashtable hashparams =new Hashtable();
+
+            hashparams.put("user_id", params[0]);
 
             SenderReceiver sender = new SenderReceiver();
 

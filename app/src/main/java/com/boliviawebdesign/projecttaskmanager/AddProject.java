@@ -13,10 +13,16 @@ import java.util.Hashtable;
 
 public class AddProject extends AppCompatActivity {
 
+    private Session session;//global variable
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_project);
+
+        //####################################################################
+        session = new Session(AddProject.this); //in oncreate
+        //and now we set sharedpreference then use this like
 
 
         Button btnAddProject = (Button) this.findViewById(R.id.btnAddProject);
@@ -42,6 +48,8 @@ public class AddProject extends AppCompatActivity {
             String stringURL = getResources().getString(R.string.server_address)+"/add_project";
 
             Hashtable hashparams =new Hashtable();
+
+            hashparams.put("user_id",session.getUserId());
 
             hashparams.put("post_content",params[0]);
 

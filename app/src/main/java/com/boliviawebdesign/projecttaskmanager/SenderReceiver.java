@@ -1,5 +1,7 @@
 package com.boliviawebdesign.projecttaskmanager;
 
+import android.graphics.Bitmap;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,7 +39,7 @@ public class SenderReceiver {
     String stringStream;
 
     // "http://192.168.134.204/orders/index.php/services/add_product"
-    public String getMessage(String stringURL, Hashtable params) {
+    public String getMessage(String stringURL, Hashtable params, Bitmap ...bitmaps) {
         try {
             URL url = new URL(stringURL);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
