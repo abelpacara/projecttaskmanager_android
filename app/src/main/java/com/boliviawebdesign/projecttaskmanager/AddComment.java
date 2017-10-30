@@ -3,14 +3,10 @@ package com.boliviawebdesign.projecttaskmanager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.util.Hashtable;
@@ -31,26 +27,11 @@ public class AddComment extends AppCompatActivity {
 
         btnAddComment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-
-                String params[] = {commentContentText.getText().toString()
-                };
-
-
+                String params[] = {commentContentText.getText().toString()};
                 new ProcessJSON().execute(params);
             }
         });
-
-
     }
-
-
-
-
-
-
-
-
 
     private class ProcessJSON extends AsyncTask<String, Void, String> {
         protected String doInBackground(String ... params){
